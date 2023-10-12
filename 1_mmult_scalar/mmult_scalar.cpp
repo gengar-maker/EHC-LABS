@@ -63,8 +63,8 @@ void print_array(char * name, int arrSize, float **array)
 void multiply_d(int arrSize, float **aMatrix, float **bMatrix, float **product)
 {
     for(int i = 0; i < arrSize; i++) {
-        for (int k = 0; k < arrSize; k++) {
-            for (int j = 0; j < arrSize; j++) {
+        for (int j = 0; j < arrSize; j++) {
+            for (int k = 0; k < arrSize; k++) {
                 product[i][j] += aMatrix[i][k] * bMatrix[k][j];
             }
         }
@@ -113,7 +113,7 @@ int main(int argc, char*argv[])
     // start timing the matrix multiply code
     cout << "Size: " << num <<" X "<<num<< endl;
     start = clock();
-    multiply_d_block(num, aMatrix, bMatrix, product);
+    multiply_d(num, aMatrix, bMatrix, product);
     // stop timing the matrix multiply code
     stop = clock();
 
