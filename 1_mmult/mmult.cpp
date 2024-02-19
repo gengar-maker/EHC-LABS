@@ -42,9 +42,54 @@ void multiply_simple(int arrSize, val_t **aMatrix, val_t **bMatrix, val_t **prod
         for (int j = 0; j < arrSize; j++)
         {
             #pragma novector
+            #pragma novector
             for (int k = 0; k < arrSize; k++)
             {
                 product[i][j] += aMatrix[i][k] * bMatrix[k][j];
+            }
+        }
+    }
+}
+
+template <typename val_t>
+void multiply_sequential(int arrSize, val_t **aMatrix, val_t **bMatrix, val_t **product)
+{
+    for (int i = 0; i < arrSize; i++)
+    {
+        for (int k = 0; k < arrSize; k++)
+        {
+            #pragma novector
+            for (int j = 0; j < arrSize; j++)
+            {
+                product[i][j] += aMatrix[i][k] * bMatrix[k][j];
+            }
+        }
+    }
+}
+
+template <typename val_t>
+void multiply_sequential_blocked(int arrSize, val_t **aMatrix, val_t **bMatrix, val_t **product)
+{
+    int block_size = 128;
+
+    for (int ii = 0; ii < arrSize; ii += block_size)
+    {
+        int max_i = min(ii + block_size, arrSize);
+        for (int jj = 0; jj < arrSize; jj += block_size)
+        {
+            int max_j = min(jj + block_size, arrSize);
+            for (int kk = 0; kk < arrSize; kk += block_size)
+            {
+                int max_k = min(kk + block_size, arrSize);
+                for (int i = ii; i < max_i; i++) {
+                    for (int k = kk; k < max_k; k++) {
+                        #pragma novector
+                        for (int j = jj; j < max_j; j++)
+                        {
+                            product[i][j] += aMatrix[i][k] * bMatrix[k][j];
+                        }
+                    }
+                }
             }
         }
     }
@@ -100,6 +145,7 @@ void mmult_task(int argc, char *argv[])
     if (argc != 2)
     {
         cerr << "Usage: mmult.exe arraySize [default is 1024].\n";
+        cerr << "Usage: mmult.exe arraySize [default is 1024].\n";
         num = 1024;
     }
     else
@@ -124,6 +170,8 @@ void mmult_task(int argc, char *argv[])
     float **product_simple = new float *[num];
     float **product_seq = new float *[num];
     float **product_blocked = new float *[num];
+    float **product_seq = new float *[num];
+    float **product_blocked = new float *[num];
 
     for (int i = 0; i < num; i++)
     {
@@ -132,9 +180,12 @@ void mmult_task(int argc, char *argv[])
         product_simple[i] = new float[num];
         product_seq[i] = new float[num];
         product_blocked[i] = new float[num];
+        product_seq[i] = new float[num];
+        product_blocked[i] = new float[num];
 
         for (int j = 0; j < num; ++j)
         {
+            product_simple[i][j] = product_seq[i][j] = product_blocked[i][j] = 0;
             product_simple[i][j] = product_seq[i][j] = product_blocked[i][j] = 0;
         }
     }
@@ -201,11 +252,15 @@ void mmult_task(int argc, char *argv[])
         delete[] product_simple[i];
         delete[] product_seq[i];
         delete[] product_blocked[i];
+        delete[] product_seq[i];
+        delete[] product_blocked[i];
     }
 
     delete[] aMatrix;
     delete[] bMatrix;
     delete[] product_simple;
+    delete[] product_seq;
+    delete[] product_blocked;
     delete[] product_seq;
     delete[] product_blocked;
 }
