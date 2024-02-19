@@ -6,7 +6,9 @@ set(CMAKE_C_COMPILER "icx-cl.exe")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_compile_options(-O3 -Qopt-report=max /arch:CORE-AVX2 -Qopenmp)
+add_compile_options(-O3 -Qopt-report=max -debug)
+
+# /arch:CORE-AVX2 -Qopenmp
 
 project(mmult)
 project(aos_soa)

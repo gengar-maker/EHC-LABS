@@ -156,7 +156,7 @@ void mmult_task(int argc, char *argv[])
 
     cout << "Elapsed time mmult simple = " << (chrono::duration_cast<chrono::milliseconds>(stop - start).count()) << " mseconds" << endl;
 
-    start = chrono::high_resolution_clock::now();
+   /* start = chrono::high_resolution_clock::now();
     multiply_sequential(num, aMatrix, bMatrix, product_seq);
     stop = chrono::high_resolution_clock::now();
 
@@ -167,9 +167,9 @@ void mmult_task(int argc, char *argv[])
         print_array((char *)("product_seq"), num, product_seq);
     }
 
-    cout << "Elapsed time mmult sequential access = " << (chrono::duration_cast<chrono::milliseconds>(stop - start).count()) << " mseconds" << endl;
+    cout << "Elapsed time mmult sequential access = " << (chrono::duration_cast<chrono::milliseconds>(stop - start).count()) << " mseconds" << endl;*/
 
-    start = chrono::high_resolution_clock::now();
+    /*start = chrono::high_resolution_clock::now();
     multiply_sequential_blocked(num, aMatrix, bMatrix, product_blocked);
     stop = chrono::high_resolution_clock::now();
 
@@ -180,9 +180,9 @@ void mmult_task(int argc, char *argv[])
         print_array((char *)("product_blocked"), num, product_blocked);
     }
 
-    cout << "Elapsed time mmult blocked = " << (chrono::duration_cast<chrono::milliseconds>(stop - start).count()) << " mseconds" << endl;
+    cout << "Elapsed time mmult blocked = " << (chrono::duration_cast<chrono::milliseconds>(stop - start).count()) << " mseconds" << endl;*/
 
-    for (int i = 0; i < num; ++i)
+    /*for (int i = 0; i < num; ++i)
     {
         for (int j = 0; j < num; ++j)
         {
@@ -192,7 +192,7 @@ void mmult_task(int argc, char *argv[])
                 break;
             }
         }
-    }
+    }*/
 
     for (int i = 0; i < num; i++)
     {
