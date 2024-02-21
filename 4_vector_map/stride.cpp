@@ -15,7 +15,7 @@ int main()
 {
 	setup();
 
-	auto start = chrono::high_resolution_clock::now(); /********************* Scalar Row Traversing Loop ********************/
+	auto start = chrono::high_resolution_clock::now();
 #pragma novector
 	for (int x = 0; x < SIZE; x++)
 	{
@@ -29,7 +29,7 @@ int main()
 	auto stop = chrono::high_resolution_clock::now();
 	cout << "(unvectorized) Across Rows: " << (chrono::duration_cast<chrono::milliseconds>(stop - start).count()) << " mseconds\n";
 
-	start = chrono::high_resolution_clock::now(); /******************* Scalar Column Traversing Loop *******************/
+	start = chrono::high_resolution_clock::now();
 #pragma novector
 	for (int x = 0; x < SIZE; x++)
 	{
@@ -43,7 +43,7 @@ int main()
 	stop = chrono::high_resolution_clock::now();
 	cout << "(unvectorized) Down Columns: " << (chrono::duration_cast<chrono::milliseconds>(stop - start).count()) << " mseconds\n";
 
-	start = chrono::high_resolution_clock::now(); /******************* Vectorized Row Traversing Loop ******************/
+	start = chrono::high_resolution_clock::now();
 	for (int x = 0; x < SIZE; x++)
 	{
 #pragma nounroll
@@ -55,7 +55,7 @@ int main()
 	stop = chrono::high_resolution_clock::now();
 	cout << "(vectorized) Across rows: " << (chrono::duration_cast<chrono::milliseconds>(stop - start).count()) << " mseconds\n";
 
-	start = chrono::high_resolution_clock::now(); /**************** Interchanged Column Traversing Loop ****************/
+	start = chrono::high_resolution_clock::now();
 	for (int x = 0; x < SIZE; x++)
 	{
 #pragma nounroll

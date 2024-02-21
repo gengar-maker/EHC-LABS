@@ -53,7 +53,7 @@ int main()
 
 	cout << "execution time for unrolled loop " << (chrono::duration_cast<chrono::milliseconds>(stop - start).count()) << " mseconds\n";
 
-	free(table);
+	_aligned_free(table);
 	return EXIT_SUCCESS;
 }
 
