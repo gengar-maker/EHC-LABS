@@ -39,10 +39,10 @@ void multiply_simple(int arrSize, val_t **aMatrix, val_t **bMatrix, val_t **prod
 {
     for (int i = 0; i < arrSize; i++)
     {
-        for (int k = 0; k < arrSize; k++)
+        for (int j = 0; j < arrSize; j++)
         {
 #pragma novector
-            for (int j = 0; j < arrSize; j++)
+            for (int k = 0; k < arrSize; k++)
             {
                 product[i][j] += aMatrix[i][k] * bMatrix[k][j];
             }
@@ -55,7 +55,6 @@ void mmult_task(int argc, char *argv[])
     int num = 0;
     if (argc != 2)
     {
-        cerr << "Usage: mmult.exe arraySize [default is 1024].\n";
         cerr << "Usage: mmult.exe arraySize [default is 1024].\n";
         num = 1024;
     }
