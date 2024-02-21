@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lab2.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="lab2-intel-advisor">Lab2. Intel advisor</h1>
+<p>Этап с настройкой окружения для запуска Intel Advisor соответствует аналогичному шагу в предыдущей лабораторной работе.
+Запуск Intel Advisor с использованием пользовательского интерфейса (выполняется из консоли с настроенным окружением):</p>
+<pre class="hljs"><code><div>C:\Users\k.sandalov&gt;advisor-gui
+</div></code></pre>
+<p>Для создания нового проекта - <strong>Create project</strong>:</p>
+<p align="center">
+<img src="./data/new/create_project_0.png" alt="image" width="80%" height="auto">
+</p>
+<p>Выбор имени проекта и его расположение:</p>
+<p align="center">
+<img src="./data/new/create_project_1.png" alt="image" width="80%" height="auto">
+</p>
+<p>После этого, для начальной настройки проекта нужно на вкладке <strong>Analysis Target</strong> -&gt; <strong>Survey Hotspots Analysis</strong> выбрать анализируемое приложение, указав полный путь до полученного .exe файла в окне <strong>Application</strong>. Соответственно, аргумены запускаемого приложения (выбран режим <strong>Launch Application</strong>), задаются в окне <strong>Application parameters</strong>.</p>
+<p>В рамках лабораторной работы используем тестовое приложение mmult из этого репозитория.
+Сперва необходимо собрать его базовую версию со следующими опциями компиляции:</p>
+<pre class="hljs"><code><div>add_compile_options(-O3 -Qopt-report=max -debug)
+</div></code></pre>
+<p align="center">
+<img src="./data/new/create_project_2.png" alt="image" width="85%" height="auto">
+</p>
+<p>Дополнительно на вкладке <strong>Analysis Target</strong> -&gt; <strong>Trip Counts and FLOP Analysis</strong> необходимо выбрать пункт <strong>Enable Memory-Level Roofline with cache simulation</strong>:</p>
+<p align="center">
+<img src="./data/new/create_project_3.png" alt="image" width="85%" height="auto">
+</p>
+<p>При создании нового проекта первым должно появиться окно с выбором определенного типа анализа или же, <strong>Perspective selector</strong>:</p>
+<p align="center">
+<img src="./data/new/perspective_selector.png" alt="image" width="85%" height="auto">
+</p>
+<p>Нужно выбрать <strong>CPU / Memory Roofline Insights</strong>.</p>
+<p>В блоке <strong>Analysis Workflow</strong> можно переключиться между разными перспективами а так же подобрать параметры для текущего типа анализа и запустить сбор данных + непосредственно сам анализ.</p>
+<p align="center">
+<img src="./data/new/analysis_workflow.png" alt="image" width="25%" height="auto">
+</p>
+<p>По типам анализов:</p>
+<ul>
+<li><strong>Survey</strong> - начальное определение горячих участков приложение (hotspots).</li>
+<li><strong>Characterization</strong> - более тяжеловесный анализ, позволяющий определить конкретнее, сколько операций с плавающей точкой было выполнено, сколько раз было вызвано тело анализируемого цикла, дерево вызовов соответствующих функций, замерить трафик уровня L1 и прочее.
+Для первого запуска должен быть выбран <strong>Survey</strong> + <strong>Characterization (FLOP)</strong>, сравнить время их выполнения.</li>
+</ul>
+<blockquote>
+<p>Задание:
+Результаты сравнения добавить в отчет. Время выполнения анализа можно найти на вкладке <strong>Summary</strong> в блоке <strong>Collection Details</strong>:</p>
+</blockquote>
+<p align="center">
+<img src="./data/new/collection_details.png" alt="image" width="75%" height="auto">
+</p>
+<p><strong>Summary</strong>:<br>
+На этой вкладке приведены общие сведения о производительности приложения:</p>
+<ul>
+<li>Количество выполняемых потоков</li>
+<li>Время работы программы от старта выполнения первого потока до завершения последнего</li>
+<li>Используемый набор векторных инструкций</li>
+<li>Доля векторизованных вычислений</li>
+<li>
+<blockquote>
+<p>GFLOPS = FLOPs / Seconds (аналогично и INTOPS)</p>
+</blockquote>
+</li>
+<li>
+<blockquote>
+<p>ArithmeticIntensity(AI) = FLOPs / Bytes (отношение кол-ва вычислений к кол-ву запрошенных для этого байтов из памяти)</p>
+</blockquote>
+</li>
+</ul>
+<p align="center">
+<img src="./data/new/summary_0.png" alt="image" width="75%" height="auto">
+</p>
+<ul>
+<li>Теоретические пиковые значения производительности для данной платформы и реально задействованная мощность:</li>
+</ul>
+<p align="center">
+<img src="./data/new/theoretical_peaks.png" alt="image" width="75%" height="auto">
+</p>
+<p>Тут же можно найти рекомендации, применимые глобально ко всему приложению, например: Использовать более широкий набор инструкций.</p>
+<blockquote>
+<p>Задание:
+Зафиксировать время выполнения программы, факт использования векторных инструкций, текущие GFLOPS и AI для приложения. Пиковые значения пропускной способности вычислительной системы.</p>
+</blockquote>
+<p>Топ самых тяжелых хотспотов и рекомендации для них. Подробнее про анализ хотспотов на вкладке <strong>Survey and Roofline</strong>:</p>
+<p align="center">
+<img src="./data/new/summary_1.png" alt="image" width="75%" height="auto">
+</p>
+<p><strong>Roofline</strong>:</p>
+<p align="center">
+<img src="./data/new/roofline.png" alt="image" width="75%" height="auto">
+</p>
+<p>На графике руфлайна наглядно отображены ограничения пропускной способности (вычислительной и подсистемы памяти), а также то, насколько эффективно их использует тестовое приложение. На графике отображаются точки, характеризующие производительность самых горячих участков тестового приложения. И в данном случае, это цикл на строке 45 в mmult.cpp. Для этой точки вычисляются значения GFLOPS/GINTOPS и AI, а так же, исходя из используемого набора инструкций, типа операций (FP или INT) и конфигурации подсистемы памяти ограничивающие ее крыши.</p>
+<p>Соответственно, ограничением производительности будет служить <code>MIN(peakMemBandwidth x AI, peakGFLOPS)</code></p>
+<p><strong>Survey</strong>:</p>
+<p align="center">
+<img src="./data/new/survey_hotspots.png" alt="image" width="75%" height="auto">
+</p>
+<p>Bottom-up представление списка хотспотов приложения в виде таблицы с performance метриками.</p>
+<blockquote>
+<p>Задание:
+Определить главный хотспот. Затем выделить ограничивающие его крыши, зафиксировать в отчете.</p>
+</blockquote>
+<p>Ниже вкладки:</p>
+<p><strong>Source</strong>:</p>
+<p align="center">
+<img src="./data/new/source.png" alt="image" width="75%" height="auto">
+</p>
+<p>Выделено непосредственно место в исходном коде, соответствующее выбранному хотспоту.</p>
+<p><strong>Top Down</strong></p>
+<p align="center">
+<img src="./data/new/top-down.png" alt="image" width="85%" height="auto">
+</p>
+<p>Дерево вызовов, для выбранного хотспота. Соответственно, для одного хотспота может быть выделено сразу несколько стеков вызовов. И тут уже можно посмотреть долю каждого в суммарном времени для хотспота.</p>
+<p><strong>Code Analytics</strong> - суммарная информация по хостпоту + по миксу инструкций для него (соотношение разных типов инструкций - memory vs compute)</p>
+<p><strong>Recommendations</strong></p>
+<p align="center">
+<img src="./data/new/recommendations.png" alt="image" width="95%" height="auto">
+</p>
+<p>То, на что стоит обратить большее внимание. Довольно важной частью данного инструмента является система предоставления рекомендаций по анализируемому коду, советы, на что стоит обратить внимание, и даже, возможно, как можно исправить те или иные проблемы с производительностью приложения.</p>
+<blockquote>
+<p>Далее перед любыми модификациями приложения необходимо делать снэпшоты:</p>
+<p align="center">
+<img src="./data/new/snapshot.png" alt="image" width="75%" height="auto">
+</p>
+<p align="center">
+<img src="./data/new/snapshot_1.png" alt="image" width="75%" height="auto">
+</p>
+<p>Снимки профиля, которые далее можно будет сравнивать между собой.</p>
+</blockquote>
+<p>Итак, в данном примере нам предлагается две ракомендации:</p>
+<ul>
+<li>Использовать более широкий набор инструкций + FMA</li>
+<li>Собрать Roofline для всех уровней памяти.</li>
+</ul>
+<p>Первое выполнять пока нет смысла, так как в самом коде у нас явно отключена векторизация. Тогда попробуем собрать Memory Level Roofline.</p>
+<p>Для этого необходимо в панели <strong>Analysis Workflow</strong>, в <strong>Characterization</strong> блоке выбрать пункт <strong>Cache Simulation</strong> и пересобрать отчет.</p>
+<p align="center">
+<img src="./data/new/memory_level_roofline.png" alt="image" width="95%" height="auto">
+</p>
+<p>И теперь по двойному клику на точку на графике руфлайна раскроется раскладка для данного хотспота по утилизации различных уровней подсистемы памяти.</p>
+<p align="center">
+<img src="./data/new/run_map_recommendation.png" alt="image" width="95%" height="auto">
+</p>
+<p>А в рекомендациях появится новая опция-предложение: запустить MAP анализ, который позволит определить паттерны доступа к памяти в рамках хотспота.</p>
+<p>Для этого, во-первых, необходимо выделить интересующие нас хотспоты:</p>
+<p align="center">
+<img src="./data/new/select_hotspots.png" alt="image" width="95%" height="auto">
+</p>
+<p>И выбрать в панели <strong>Analysis Workflow</strong> новый анализ - <strong>Memory Access Patterns</strong> и запустить его.</p>
+<p>Третья вкладка <strong>Refinement Reports</strong>:</p>
+<p>Тут можно найти отчет по проведенному MAP анализу:</p>
+<p align="center">
+<img src="./data/new/map_report.png" alt="image" width="75%" height="auto">
+</p>
+<p>Где, собственно, и написано, что в нашей программе, в хотспоте, обнаружен неэффективный паттерн доступа к памяти. А ниже приведены рокомендации, как от этого можно избавиться:</p>
+<p align="center">
+<img src="./data/new/reorder_loop_recommendation.png" alt="image" width="75%" height="auto">
+</p>
+<blockquote>
+<p>Сохраняем снэпшот и применяем исправления в коде. Снэпшот приложить к отчету. Можно собрать все в архив и сохранить для дальнейшей отправки преподавателю.</p>
+</blockquote>
+<p>Memory Level Roofline для новой версии приложения:</p>
+<p align="center">
+<img src="./data/new/memory_level_roofline_new_traffic.png" alt="image" width="75%" height="auto">
+</p>
+<blockquote>
+<p>Доп. вопрос: о чем на рисунке выше говорит подобное расположение точек для разных уровней памяти на графике руффлайна.</p>
+</blockquote>
+<p>Теперь можно сравнить две версии отчета соотв. разным версиям приложения:</p>
+<p align="center">
+<img src="./data/new/compare_results.png" alt="image" width="45%" height="auto">
+</p>
+<p>Добавляем сохраненный ранее снэпшот и получаем следующую картинку:</p>
+<p align="center">
+<img src="./data/new/compared_results.png" alt="image" width="75%" height="auto">
+</p>
+<p>Наглядно видно прирост производительности.</p>
+<blockquote>
+<p>Задание: добавить векторизацию <code>#pragma novector</code> --&gt; <code>#pragma vector</code>. Сравнить результат выполенния векторизованного кода с невекторизованным.
+Использовать AVX<br>
+<code>add_compile_options(-O3 -Qopt-report=max -debug /QxCORE-AVX2 /Qalign-loops:32)</code></p>
+</blockquote>
+
+</body>
+</html>
