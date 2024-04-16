@@ -1,0 +1,3 @@
+[submodule "n-body-example"]
+	path = n-body-example
+	url = https://github.com/SandalovKY/n-body-example
