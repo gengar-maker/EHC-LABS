@@ -41,7 +41,6 @@ void multiply_simple(int arrSize, val_t **aMatrix, val_t **bMatrix, val_t **prod
     {
         for (int j = 0; j < arrSize; j++)
         {
-#pragma novector
             for (int k = 0; k < arrSize; k++)
             {
                 product[i][j] += aMatrix[i][k] * bMatrix[k][j];

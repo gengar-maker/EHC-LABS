@@ -1,0 +1,15 @@
+[
+    {
+        "name": "DPC++",
+        "preferredGenerator": {
+      "name": "Visual Studio 17 2022",
+      "platform": "x64",
+      "toolset": "host=x64"
+    },
+        "environmentSetupScript": "${ONEAPI_ROOT}/setvars.sh",
+        "compilers": {
+            "C": "icx",
+            "CXX": "icx"
+        }
+    }
+]
