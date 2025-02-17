@@ -4,11 +4,11 @@ cmake_minimum_required(VERSION 3.23.0)
 
 project(EHC_project)
 
-find_package(IntelSYCL REQUIRED)
+# find_package(IntelSYCL REQUIRED)
 
-if(IntelSYCL_FOUND)
-    message(STATUS "Using Intel compiler")
-endif()
+# if(IntelSYCL_FOUND)
+#     message(STATUS "Using Intel compiler")
+# endif()
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)

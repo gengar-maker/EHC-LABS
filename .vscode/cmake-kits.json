@@ -1,12 +1,10 @@
 [
     {
         "name": "DPC++",
+        "environmentSetupScript": "C:\\Program Files (x86)\\Intel\\oneAPI\\setvars.bat",
         "preferredGenerator": {
-      "name": "Visual Studio 17 2022",
-      "platform": "x64",
-      "toolset": "host=x64"
-    },
-        "environmentSetupScript": "${ONEAPI_ROOT}/setvars.sh",
+            "name": "Ninja"
+        },
         "compilers": {
             "C": "icx",
             "CXX": "icx"

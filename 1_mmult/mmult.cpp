@@ -4,6 +4,8 @@
 #include <random>
 #include <chrono>
 
+// #include "advisor-annotate.h"
+
 using namespace std;
 
 void init_matrix(double row, double col, double off, int arrSize, float **array)
@@ -41,10 +43,14 @@ void multiply_simple(int arrSize, val_t **aMatrix, val_t **bMatrix, val_t **prod
     {
         for (int j = 0; j < arrSize; j++)
         {
+            // ANNOTATE_SITE_BEGIN(reuse_site);
             for (int k = 0; k < arrSize; k++)
             {
+                // ANNOTATE_TASK_BEGIN(task111);
                 product[i][j] += aMatrix[i][k] * bMatrix[k][j];
+                // ANNOTATE_TASK_END();
             }
+            // ANNOTATE_SITE_END();
         }
     }
 }
