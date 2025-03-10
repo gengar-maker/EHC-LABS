@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.23.0)
+cmake_minimum_required(VERSION 3.21.0)
 
 # set (CMAKE_GENERATOR "Ninja" CACHE STRING "" FORCE)
 
