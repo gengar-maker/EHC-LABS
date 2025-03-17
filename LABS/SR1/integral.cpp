@@ -37,10 +37,10 @@ float integrate(float a, float b, size_t q) {
 };
 
 double func(float x) {
-    return 1. / sqrt(1. + pow(x, 7));
+    return 4. / sqrt(4. - pow(x, 2));
 }
 
-const double refer = 0.953824033354;
+const double refer = 2.09439510239319;
 
 int main(int argc, char** argv)
 {
