@@ -37,7 +37,7 @@ float integrate(float a, float b, size_t q) {
 };
 
 double func(float x) {
-    return 4. / sqrt(4. - pow(x, 2));
+    return 4. / sqrt(4.f - x*x);
 }
 
 const double refer = 2.09439510239319;
