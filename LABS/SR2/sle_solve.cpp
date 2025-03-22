@@ -3,15 +3,9 @@
 #include <random>
 #include <string>
 
-typedef double type;
+#include <chrono>
 
-struct linear_system
-{
-    int vars, lines;
-    std::vector<std::vector<type>> coefs;
-    std::vector<type> free_term;
-    std::vector<type> variables;
-};
+typedef double type;
 
 class Gauss
 {
@@ -22,9 +16,6 @@ class Gauss
     std::vector<type> free_term_tmp;
     int n, m;
 
-    linear_system system;
-    linear_system tmp_system;
-
 public:
     Gauss(int _n, int _m, type **_coefs, type *_free_terms)
         : n(_n),
@@ -34,7 +25,6 @@ public:
           variables(_n),
           free_term(_m),
           free_term_tmp(_m)
-    //   system({.vars = _n, .lines = _m, .coefs = std::vector(_m, std::vector<type>(_n)), .free_term = std::vector(_m), .variables = std::vector(_n)})
     {
         for (int i = 0; i < _m; ++i)
         {
@@ -47,14 +37,13 @@ public:
     }
     double solve()
     {
-        double start{}, end{};
-        start = omp_get_wtime();
+        std::chrono::time_point start = std::chrono::high_resolution_clock::now();
         forward();
         backward();
         get_answer();
-        end = omp_get_wtime();
-        std::cout << "Elapsed sequential Gaussian time: " << end - start << " seconds\n";
-        return end - start;
+        std::chrono::time_point end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed_time = end - start;
+        return elapsed_time.count();
     }
 
     void forward()
@@ -138,6 +127,7 @@ bool correctness_test_run()
 
     Gauss method{3, 3, coefs, free_terms};
     double test_time = method.solve();
+    std::cout << "Elapsed sequential Gaussian time: " << test_time << " seconds\n";
 
     for (int i = 0; i < 3; ++i)
     {
@@ -177,6 +167,7 @@ bool performance_run(int task_size)
 
     Gauss method(task_size, task_size, coefs, free_term);
     double seq_time = method.solve();
+    std::cout << "Elapsed sequential Gaussian time: " << seq_time << " seconds\n";
 
     delete[] (free_term);
     for (int i = 0; i < task_size; ++i)
