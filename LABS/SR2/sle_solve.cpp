@@ -9,32 +9,19 @@ typedef double type;
 
 class Gauss
 {
-    std::vector<std::vector<type>> coefs;
-    std::vector<std::vector<type>> coefs_tmp;
+    type** coefs;
+    type* free_term;
     std::vector<type> variables;
-    std::vector<type> free_term;
-    std::vector<type> free_term_tmp;
     int n, m;
 
 public:
     Gauss(int _n, int _m, type **_coefs, type *_free_terms)
         : n(_n),
           m(_m),
-          coefs(_m, std::vector<type>(_n)),
-          coefs_tmp(_m, std::vector<type>(_n)),
+          coefs(_coefs),
           variables(_n),
-          free_term(_m),
-          free_term_tmp(_m)
-    {
-        for (int i = 0; i < _m; ++i)
-        {
-            for (int j = 0; j < _n; ++j)
-            {
-                coefs[i][j] = coefs_tmp[i][j] = _coefs[i][j];
-            }
-            free_term[i] = free_term_tmp[i] = _free_terms[i];
-        }
-    }
+          free_term(_free_terms)
+    {}
     double solve()
     {
         std::chrono::time_point start = std::chrono::high_resolution_clock::now();
@@ -50,30 +37,20 @@ public:
     {
         for (int i = 0; i < m; ++i)
         {
+            type lead_elem = coefs[i][i];
             for (int j = 0; j < n; ++j)
             {
-                coefs_tmp[i][j] = coefs_tmp[i][j] / coefs[i][i];
+                coefs[i][j] = coefs[i][j] / lead_elem;
             }
-
-            free_term_tmp[i] = free_term_tmp[i] / coefs[i][i];
-
-            for (int j = i + 1; j < n; ++j)
+            free_term[i] = free_term[i] / lead_elem;
+            for (int j = i + 1; j < m; ++j)
             {
-                type coef = coefs_tmp[j][i] / coefs_tmp[i][i];
+                type coef = coefs[j][i] / coefs[i][i];
                 for (int k = 0; k < n; ++k)
                 {
-                    coefs_tmp[j][k] = coefs_tmp[j][k] - coefs_tmp[i][k] * coef;
+                    coefs[j][k] = coefs[j][k] - coefs[i][k] * coef;
                 }
-                free_term_tmp[j] = free_term_tmp[j] - free_term_tmp[i] * coef;
-            }
-
-            for (int k = 0; k < m; ++k)
-            {
-                for (int j = 0; j < n; ++j)
-                {
-                    coefs[k][j] = coefs_tmp[k][j];
-                }
-                free_term[k] = free_term_tmp[k];
+                free_term[j] = free_term[j] - free_term[i] * coef;
             }
         }
     }
@@ -81,20 +58,20 @@ public:
     {
         for (int i = m - 1; i >= 0; --i)
         {
+            type lead_elem = coefs[i][i];
             for (int j = n - 1; j >= 0; --j)
             {
-                coefs_tmp[i][j] = coefs_tmp[i][j] / coefs[i][i];
+                coefs[i][j] = coefs[i][j] / lead_elem;
             }
-            free_term_tmp[i] = free_term_tmp[i] / coefs[i][i];
-
+            free_term[i] = free_term[i] / lead_elem;
             for (int j = i - 1; j >= 0; --j)
             {
-                type coef = coefs_tmp[j][i] / coefs_tmp[i][i];
+                type coef = coefs[j][i] / coefs[i][i];
                 for (int k = n - 1; k >= 0; --k)
                 {
-                    coefs_tmp[j][k] = coefs_tmp[j][k] - coefs_tmp[i][k] * coef;
+                    coefs[j][k] = coefs[j][k] - coefs[i][k] * coef;
                 }
-                free_term_tmp[j] = free_term_tmp[j] - free_term_tmp[i] * coef;
+                free_term[j] = free_term[j] - free_term[i] * coef;
             }
         }
     }
@@ -103,7 +80,7 @@ public:
     {
         for (int i = 0; i < n; ++i)
         {
-            variables[i] = free_term_tmp[i];
+            variables[i] = free_term[i];
         }
     }
 
@@ -115,19 +92,18 @@ public:
 
 bool correctness_test_run()
 {
-    type line_1[] = {7, 1, 0};
-    type line_2[] = {2, -10, 4};
-    type line_3[] = {-10, -1, -8};
+    type line_1[] = {1, 2, 3};
+    type line_2[] = {3, 5, 7};
+    type line_3[] = {1, 3, 4};
 
-    type free_terms[] = {-47, -74, 148};
+    type free_terms[] = {3, 0, 1};
 
-    type answer[] = {-7, 2, -10};
+    type answer[] = {-4, -13, 11};
 
     type *coefs[] = {line_1, line_2, line_3};
 
     Gauss method{3, 3, coefs, free_terms};
     double test_time = method.solve();
-    std::cout << "Elapsed sequential Gaussian time: " << test_time << " seconds\n";
 
     for (int i = 0; i < 3; ++i)
     {

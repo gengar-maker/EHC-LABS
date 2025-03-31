@@ -16,28 +16,27 @@ void kahan_sum(double func_ret, double& sum, double& corr) {
     sum = t;
 }
 
-double mid_rectangles(float a, float h, size_t q) {
-    double result{};
-    double c{};
-
-    for(size_t i = 0; i < q; ++i) {
-        kahan_sum(m_func(a + h * i + h / 2) * h, result, c);
-    }
-    return result;
+double mid_rectangles(float a, float h, size_t i) {
+    return m_func(a + h * i + h / 2) * h;
 }
 
 public:
 Solver(double(*func)(float))
 : m_func(func) {}
 
-float integrate(float a, float b, size_t q) {
+double integrate(float a, float b, size_t q) {
+    double sum{};
+    double corr{};
     const float h = (b - a) / q;
-    return mid_rectangles(a, h, q);
+    for (size_t i = 0; i < q; ++i) {
+        kahan_sum(mid_rectangles(a, h, i), sum, corr);
+    }
+    return sum;
 }
 };
 
 double func(float x) {
-    return 4. / sqrt(4.f - x*x);
+    return 4. / sqrt(4. - x*x);
 }
 
 const double refer = 2.09439510239319;
