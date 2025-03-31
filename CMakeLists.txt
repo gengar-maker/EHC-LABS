@@ -10,5 +10,6 @@ add_subdirectory(2_aos_soa)
 add_subdirectory(3_primary_nums)
 add_subdirectory(4_vector_remainder)
 add_subdirectory(4_vector_map)
+add_subdirectory(4_vector_intrinsics)
 
 add_subdirectory(LABS)
