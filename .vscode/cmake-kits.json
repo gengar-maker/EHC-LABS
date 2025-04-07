@@ -1,7 +1,7 @@
 [
     {
         "name": "DPC++",
-        "environmentSetupScript": "C:\\Program Files (x86)\\Intel\\oneAPI\\setvars.bat",
+        "environmentSetupScript": "D:\\Program Files\\oneAPI\\setvars.bat",
         "preferredGenerator": {
             "name": "Ninja"
         },
