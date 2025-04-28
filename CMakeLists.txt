@@ -13,3 +13,6 @@ add_subdirectory(4_vector_map)
 add_subdirectory(4_vector_intrinsics)
 
 add_subdirectory(LABS)
+
+add_subdirectory(n-body-example)
+
