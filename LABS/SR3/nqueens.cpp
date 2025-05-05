@@ -44,11 +44,6 @@
 #include <windows.h>
 #include <time.h>
 
-#include <omp.h>  // Добавляем заголовок OpenMP
-
-#include <chrono>
-#include "D:\\Program Files\\oneAPI\\advisor\\latest\\include\\advisor-annotate.h"
-
 
 //ADVISOR COMMENT: Uncomment the #include <advisor-annotate.h> line after you've added the annotation header to the project to allow you to use Advisor annotations
 
@@ -84,6 +79,7 @@ void setQueen(int queens[], int row, int col) {
 	queens[row] = col;
 
 	if (row == board_size - 1) {
+		#pragma omp atomic
 		nrOfSolutions++;  //Placed final queen, found a solution
 	}
 	else {
@@ -100,16 +96,18 @@ Function to find all solutions for nQueens problem on board_size x board_size ch
 On Return: nrOfSoultions = number of solutions for board_size x board_size chessboard.
 */
 void solve() {
-	ANNOTATE_SITE_BEGIN(PARALLEL_SOOLVE);
-	int* queens = new int[board_size]; //array representing queens placed on a chess board.  Index is row position, value is column.
-
-	for (int i = 0; i < board_size; i++) {
-		ANNOTATE_ITERATION_TASK(it_task);
-		// try all positions in first row
-		setQueen(queens, 0, i);
-	}
-	ANNOTATE_SITE_END();
+    #pragma omp parallel
+    {
+        int* queens = new int[board_size]; //array representing queens placed on a chess board.  Index is row position, value is column.
+        #pragma omp for
+        for (int i = 0; i < board_size; i++) {
+            // try all positions in first row
+            setQueen(queens, 0, i);
+        }
+    }
+    
 }
+
 
 
 int main(int argc, char* argv[]) {
