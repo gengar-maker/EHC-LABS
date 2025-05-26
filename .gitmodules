@@ -1,3 +1,6 @@
 [submodule "n-body-example"]
 	path = n-body-example
 	url = https://github.com/SandalovKY/n-body-example
+[submodule "image-processing"]
+	path = image-processing
+	url = https://github.com/SandalovKY/image-processing
