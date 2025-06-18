@@ -15,4 +15,5 @@ add_subdirectory(4_vector_intrinsics)
 add_subdirectory(LABS)
 
 add_subdirectory(n-body-example)
+add_subdirectory(image-processing)
 
