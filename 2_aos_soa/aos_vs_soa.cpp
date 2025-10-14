@@ -37,7 +37,6 @@ void compare_objects(int arrSize, Object *array)
 
     for (int i = 0; i < arrSize; i++)
     {
-#pragma novector
         for (int j = 0; j < arrSize; j++)
         {
             float d_0 = array[i].opts_c[0] - array[j].opts_c[0];

@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
     {
         sum += isprime ( i );
     }
-    printf( "Number of primes numbers: %d", sum );
+    printf( "Number of primes: %d", sum );
     
     return 0;
 }
