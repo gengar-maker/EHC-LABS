@@ -21,7 +21,7 @@ void init_objects(int arrSize, Object *array)
     int i;
     for (i = 0; i < arrSize; i++)
     {
-        strcpy(array[i].opts_a, "some name");
+        strcpy_s(array[i].opts_a, "some name");
         array[i].opts_b[0] = gen() % 1000;
         array[i].opts_b[1] = gen() % 1000;
         array[i].opts_b[2] = gen() % 1000;
