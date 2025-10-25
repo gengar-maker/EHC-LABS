@@ -1,13 +1,20 @@
 [
     {
         "name": "DPC++",
-        "environmentSetupScript": "D:\\Program Files\\oneAPI\\setvars.bat",
+        "environmentSetupScript": "C:\\Program Files (x86)\\Intel\\oneAPI\\setvars.bat",
         "preferredGenerator": {
             "name": "Ninja"
         },
         "compilers": {
             "C": "icx",
             "CXX": "icx"
+        },
+        "cmakeSettings": {
+            "CMAKE_BUILD_TYPE": "Debug",
+            "CMAKE_CXX_FLAGS_DEBUG": "/Zi /DEBUG /O2 /Qipo- /Qopt-report:max /Qopenmp"
+        },
+        "environmentVariables": {
+            "VERBOSE": "1"
         }
     }
 ]

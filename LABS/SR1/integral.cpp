@@ -1,45 +1,37 @@
 #include <iostream>
 #include <cmath>
 #include <string>
+#include <iomanip>
 
 #include <chrono>
 
 class Solver {
-private:
+protected:
+    double func(float x) {
+        return 4. / sqrt(4. - x * x);
+    }
 
-double(*m_func)(float);
-
-void kahan_sum(double func_ret, double& sum, double& corr) {
-    const double y = func_ret - corr;
-    const double t = sum + y;
-    corr = (t - sum) - y;
-    sum = t;
-}
-
-double mid_rectangles(float a, float h, size_t i) {
-    return m_func(a + h * i + h / 2) * h;
-}
+    double method(float a, float h, size_t i)
+    {
+        return func(a + h * i + h / 2) * h;
+    }
 
 public:
-Solver(double(*func)(float))
-: m_func(func) {}
+    Solver()
+    {}
+    virtual ~Solver() {}
 
-double integrate(float a, float b, size_t q) {
-    double sum{};
-    double corr{};
-    const float h = (b - a) / q;
-    for (size_t i = 0; i < q; ++i) {
-        kahan_sum(mid_rectangles(a, h, i), sum, corr);
+    double integrate(float a, float b, size_t q) {
+        double sum{};
+        const float h = (b - a) / q;
+
+        for (size_t i = 0; i < q; ++i) {
+            sum += method(a, h, i);
+        }
+        return sum;
     }
-    return sum;
-}
 };
 
-double func(float x) {
-    return 4. / sqrt(4. - x*x);
-}
-
-const double refer = 2.09439510239319;
 
 int main(int argc, char** argv)
 {
@@ -54,8 +46,9 @@ int main(int argc, char** argv)
 
     const float a = 0;
     const float b = 1;
+    auto sol = Solver();
 
-    Solver  sol{func};
+    const double refer = 2.09439510239319;
     
     const std::chrono::time_point t_start = std::chrono::high_resolution_clock::now();
     double result = sol.integrate(a, b, rects);
@@ -63,6 +56,9 @@ int main(int argc, char** argv)
     
     const std::chrono::duration<double> elapsed_time = t_end - t_start;
 
+    std::cout << std::setprecision(16);
+    std::cout << std::endl;
+    std::cout << "Interval a = " << a << " b = " << b << std::endl;
     std::cout << "Elapsed time: " << elapsed_time.count() << std::endl;
     std::cout << "Reference answer: " << refer << std::endl;
     std::cout << "Answer: " << result << std::endl;

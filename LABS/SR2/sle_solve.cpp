@@ -156,7 +156,7 @@ bool performance_run(int task_size)
 
 int main(int argc, char **argv)
 {
-    int task_size = 100;
+    int task_size = 2000;
 
     if (argc > 1)
     {

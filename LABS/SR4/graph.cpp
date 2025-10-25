@@ -4,7 +4,7 @@
 #include <chrono>
 #include <string>
 
-#define MAX_DIST 10
+#define MAX_DIST 30
 
 class Graph {
 private:
@@ -91,7 +91,7 @@ void fill_rand_graph(Graph& graph) {
     for (size_t i = 0; i < size; ++i) {
         for (size_t j = 0; j < size; ++j) {
             if (i != j) {
-                graph.add_edge(i, j, (rand() % (MAX_DIST - 1)) + 1);
+                graph.add_edge(i, j, (rand() % (MAX_DIST + (MAX_DIST / 2))) + 1);
             }
         }
     }
@@ -108,7 +108,7 @@ int main(int argc, char** argv)
     }
 
     srand(17);
-    Graph gr1(3);
+    Graph gr1(5);
     fill_rand_graph(gr1);
     gr1.print_adj_matr();
     std::cout << "\nTest run started\n";
